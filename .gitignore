@@ -1,0 +1,16 @@
+# Node / Angular
+node_modules/
+dist/
+
+# Python
+.venv/
+__pycache__/
+
+# Your large files (IMPORTANT)
+backend-doc-images/data/uploads/
+
+# General
+*.pdf
+*.zip
+*.png
+*.jpg
