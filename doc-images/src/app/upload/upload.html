@@ -1,0 +1,85 @@
+<div class="container">
+
+  <div class="header">
+    <h1>DocVision AI</h1>
+    <button class="upload-btn">Upload PDF</button>
+  </div>
+
+  <div class="card">
+
+    <h2>Processing Configuration</h2>
+
+    <div class="controls">
+
+      <input type="file"
+             accept="application/pdf"
+             (change)="onFile($event)" />
+
+      <select [(ngModel)]="mode">
+        <option value="auto">Auto</option>
+        <option value="embedded">Embedded</option>
+        <option value="scanned">Scanned</option>
+      </select>
+
+      <input *ngIf="mode === 'scanned' || mode === 'auto'"
+             type="number"
+             [(ngModel)]="minArea"
+             placeholder="Min area" />
+
+      <select [(ngModel)]="format">
+        <option value="png">PNG</option>
+        <option value="jpg">JPG</option>
+        <option value="jpeg">JPEG</option>
+      </select>
+
+      <button
+        (click)="process()"
+        [disabled]="!file || (loading$ | async)"
+        class="primary-btn">
+        {{ (loading$ | async) ? 'Processing...' : 'Generate Images' }}
+      </button>
+
+    </div>
+
+    <p class="error" *ngIf="(error$ | async) as err">{{ err }}</p>
+
+  </div>
+
+  <div class="card" *ngIf="(images$ | async) as images">
+
+    <h2 *ngIf="images.length">Extracted Images</h2>
+
+    <div class="grid" *ngIf="images.length">
+
+      <div class="tile" *ngFor="let img of images; trackBy: trackByName">
+
+        <!-- CLICK TO PREVIEW -->
+        <img [src]="img.url"
+             (click)="preview(img.url)"
+             style="cursor:pointer;" />
+
+        <div class="meta">
+          Page {{ img.page }} • {{ img.width }}×{{ img.height }}
+        </div>
+
+        <input [value]="img.filename" #rn />
+
+        <div class="actions">
+          <button (click)="rename(img, rn.value)">Rename</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" *ngIf="previewUrl" (click)="previewUrl = null">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="previewUrl = null">✕</button>
+      <img [src]="previewUrl" />
+    </div>
+  </div>
+
+</div>

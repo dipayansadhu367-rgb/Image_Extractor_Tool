@@ -1,0 +1,48 @@
+.card {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+.row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.error {
+  color: #c00;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.tile {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tile img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #fafafa;
+  border-radius: 8px;
+}
+.meta {
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.rename {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
